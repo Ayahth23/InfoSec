@@ -15,6 +15,7 @@ lib/libtcc1.o
 lib/stdatomic.o
 lib/tcov.o
 lib/va_list.o
+test/*
 libtcc.a
 libtcc.o
 libtcc1.a
