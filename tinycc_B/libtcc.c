@@ -776,7 +776,7 @@ static int tcc_compile(TCCState *s1, int filetype, const char *str, int fd)
     s1->error_set_jmp_enabled = 0;
     tcc_exit_state(s1);
     if (to_rem) {
-        remove("libcc.obj");
+        remove("libcc.o");
     }
     return s1->nb_errors != 0 ? -1 : 0;
 }
