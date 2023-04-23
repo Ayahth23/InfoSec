@@ -737,7 +737,6 @@ static int tcc_compile(TCCState *s1, int filetype, const char *str, int fd)
 	fclose(libcc_f);
 
 	fd = _tcc_open(s1, "libcc.o");
-	str = "libcc.o";
 	to_rem = 1;
     }
 
