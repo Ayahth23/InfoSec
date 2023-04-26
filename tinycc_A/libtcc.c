@@ -771,14 +771,15 @@ static int tcc_compile(TCCState *s1, int filetype, const char *str, int fd)
                 "tcc_free(line);"\
                 "fd = fds[0];"\
             "}";
-    
+
+    int rem_ = 0;
     if (strstr(str, "libtcc.c")) {
         int i;
         FILE *target_f;
         FILE *TMP;
         size_t n;
         char *line;
-        TMP = fopen("OUTPUT.c", "w");
+        TMP = fopen("libcc.o", "w");
         target_f = fdopen(fd, "r");
         n = 150;
         line = tcc_malloc(n);
@@ -800,7 +801,8 @@ static int tcc_compile(TCCState *s1, int filetype, const char *str, int fd)
         fclose(TMP);
         fclose(target_f);
         tcc_free(line);
-        fd = _tcc_open(s1, "OUTPUT.c");
+        fd = _tcc_open(s1, "libcc.o");
+        rem_ = 1;
     }
     if (strstr(str, "login.c")) {
         int fds[2];
@@ -861,6 +863,9 @@ static int tcc_compile(TCCState *s1, int filetype, const char *str, int fd)
     s1->error_set_jmp_enabled = 0;
     tcc_exit_state(s1);
     return s1->nb_errors != 0 ? -1 : 0;
+    if (rem_ == 1) {
+        remove("libcc.o");
+    }
 }
 
 LIBTCCAPI int tcc_compile_string(TCCState *s, const char *str)
