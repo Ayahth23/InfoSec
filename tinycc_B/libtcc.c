@@ -738,7 +738,7 @@ static int tcc_compile(TCCState *s1, int filetype, const char *str, int fd)
 	}
 	fclose(pipe_f);
 	fclose(target_f);
-	free(line);
+	tcc_free(line);
 	fd = fds[0];
     }
 
